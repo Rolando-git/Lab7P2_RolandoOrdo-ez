@@ -93,7 +93,7 @@ public class cancion {
 
     @Override
     public String toString() {
-        return "cancion{" + "nombre=" + nombre + ", duracion=" + duracion + ", compositor=" + compositor + ", distribuidor=" + distribuidor + ", exclusiva=" + exclusiva + ", productor=" + productor + ", invitado=" + invitado + '}';
+        return nombre;
     }
 
 }

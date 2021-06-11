@@ -5,7 +5,9 @@
  */
 package Principal;
 
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -54,6 +56,8 @@ public class Menu extends javax.swing.JFrame {
         jb_agregar = new javax.swing.JButton();
         jb_editar = new javax.swing.JButton();
         jb_eliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         Fondo = new javax.swing.JLabel();
 
         jd_crear_artista.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,6 +153,11 @@ public class Menu extends javax.swing.JFrame {
 
         getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
+        jList1.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 110, -1));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal/color_verde.jpg"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
@@ -202,6 +211,15 @@ public class Menu extends javax.swing.JFrame {
             JFileChooser fc = new JFileChooser();
             FileFilter filtro = new FileNameExtensionFilter("Audio","mp3","mp4","wma");
             fc.setFileFilter(filtro);
+            File archivo;
+            int op = fc.showOpenDialog(jd_crear_artista);
+            if (op==JFileChooser.APPROVE_OPTION){
+                archivo = fc.getSelectedFile();
+                C.setArchivo(archivo);
+            }
+            canciones.add(C);
+            DefaultListModel modelo = (DefaultListModel)jList1.getModel();
+            modelo.addElement(C);
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -254,8 +272,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
