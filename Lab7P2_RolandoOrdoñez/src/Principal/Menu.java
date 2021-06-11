@@ -5,6 +5,7 @@
  */
 package Principal;
 
+import java.applet.AudioClip;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -52,6 +53,10 @@ public class Menu extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        menu_popup = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         jb_agregar = new javax.swing.JButton();
         jb_editar = new javax.swing.JButton();
@@ -123,6 +128,20 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal/amarillo-1200x839.png"))); // NOI18N
         jd_crear_artista.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
 
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menu_popup.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        menu_popup.add(jMenuItem2);
+
+        jMenuItem3.setText("jMenuItem3");
+        menu_popup.add(jMenuItem3);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -154,6 +173,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
         jList1.setModel(new DefaultListModel());
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 110, -1));
@@ -220,8 +244,44 @@ public class Menu extends javax.swing.JFrame {
             canciones.add(C);
             DefaultListModel modelo = (DefaultListModel)jList1.getModel();
             modelo.addElement(C);
+            String a = JOptionPane.showInputDialog(jd_crear_artista, "nombre del album al cual se va a agregar");
+            for (int i = 0; i < albumes.size(); i++) {
+                String n = albumes.get(i).getNombre();
+                if (n.equalsIgnoreCase(a)){
+                    albumes.get(i).setCanciones(C);
+                }
+            }
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        if (evt.isMetaDown()){
+            if (jList1.getSelectedIndex()>=0){
+                menu_popup.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        sonido audio = new sonido();
+        File archivo = null;
+        String m = jList1.getSelectedValue();
+        for (int i = 0; i < canciones.size(); i++) {
+            if (canciones.get(i).toString().equals(m)){
+                archivo = canciones.get(i).getArchivo();
+            }
+        }
+        AudioClip musica = audio.getAudio(archivo.getPath());
+        try{
+            musica.play();
+        }
+        catch(Exception e){
+            musica.stop();
+            musica.play();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,6 +333,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -284,5 +347,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jb_editar;
     private javax.swing.JButton jb_eliminar;
     private javax.swing.JDialog jd_crear_artista;
+    private javax.swing.JPopupMenu menu_popup;
     // End of variables declaration//GEN-END:variables
 }
