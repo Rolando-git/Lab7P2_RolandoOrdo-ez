@@ -6,6 +6,10 @@
 package Principal;
 
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,6 +47,7 @@ public class Menu extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jToolBar1 = new javax.swing.JToolBar();
@@ -96,7 +101,20 @@ public class Menu extends javax.swing.JFrame {
         jd_crear_artista.getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, -1));
 
         jButton1.setText("Crear Album");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jd_crear_artista.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
+
+        jButton2.setText("Añadir cancion");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jd_crear_artista.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal/amarillo-1200x839.png"))); // NOI18N
         jd_crear_artista.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 300));
@@ -145,6 +163,48 @@ public class Menu extends javax.swing.JFrame {
         jd_crear_artista.setVisible(true);
     }//GEN-LAST:event_jb_agregarMouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        album A = new album();
+        A.setNombre(jTextField1.getText());
+        A.setPublicacion(jDateChooser1.getDate());
+        if (jRadioButton1.isSelected()){
+            A.setFormato("Digital");
+        }
+        if (jRadioButton2.isSelected()){
+            A.setFormato("Fisico");
+        }
+        A.setProductor(jTextField3.getText());
+        albumes.add(A);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        if (albumes.isEmpty()){
+            JOptionPane.showMessageDialog(jd_crear_artista, "No hay ningun album, cree uno");
+        }
+        else{
+            String nombre = JOptionPane.showInputDialog(jd_crear_artista, "Nombre de la cancion");
+            int duracion = Integer.parseInt(JOptionPane.showInputDialog(jd_crear_artista, "Duracion de la cancion (en segundos)"));
+            String composotor = JOptionPane.showInputDialog(jd_crear_artista, "nombre del compositor");
+            String distribuidor = JOptionPane.showInputDialog(jd_crear_artista, "nombre del distribuidor");
+            String exclusiva = JOptionPane.showInputDialog(jd_crear_artista, "Exclusiva de spotify?[s/n]");
+            String productor = JOptionPane.showInputDialog(jd_crear_artista, "nombre del productor");
+            String invitado = JOptionPane.showInputDialog(jd_crear_artista, "nombre del invitado (si no hay ninguno deje en blanco)");
+            cancion C = new cancion();
+            C.setNombre(nombre);
+            C.setDuracion(duracion);
+            C.setCompositor(composotor);
+            C.setDistribuidor(distribuidor);
+            C.setExclusiva(exclusiva);
+            C.setProductor(productor);
+            C.setInvitado(invitado);
+            JFileChooser fc = new JFileChooser();
+            FileFilter filtro = new FileNameExtensionFilter("Audio","mp3","mp4","wma");
+            fc.setFileFilter(filtro);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -186,6 +246,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Fondo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

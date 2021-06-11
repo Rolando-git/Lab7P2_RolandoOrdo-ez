@@ -1,5 +1,7 @@
 package Principal;
 
+import java.io.File;
+
 public class cancion {
 
     private String nombre;
@@ -9,11 +11,12 @@ public class cancion {
     private String exclusiva;
     private String productor;
     private String invitado;
+    private File archivo;
 
     public cancion() {
     }
 
-    public cancion(String nombre, int duracion, String compositor, String distribuidor, String exclusiva, String productor, String invitado) {
+    public cancion(String nombre, int duracion, String compositor, String distribuidor, String exclusiva, String productor, String invitado, File archivo) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.compositor = compositor;
@@ -21,6 +24,7 @@ public class cancion {
         this.exclusiva = exclusiva;
         this.productor = productor;
         this.invitado = invitado;
+        this.archivo = archivo;
     }
 
     public String getNombre() {
@@ -77,6 +81,14 @@ public class cancion {
 
     public void setInvitado(String invitado) {
         this.invitado = invitado;
+    }
+
+    public File getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(File archivo) {
+        this.archivo = archivo;
     }
 
     @Override
